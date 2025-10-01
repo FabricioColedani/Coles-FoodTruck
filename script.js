@@ -1,149 +1,162 @@
 /* script.js
-   Funcionalidades:
-   - Navbar sticky + estilo al hacer scroll
-   - Toggle menú mobile
-   - Smooth scroll
-   - Scroll reveal animado
-   - Botón subir arriba
-   - Validación y envío de comentarios vía EmailJS
+   JS puro para:
+   - Navbar sticky + cambio de estilo al hacer scroll
+   - Toggle menú en mobile
+   - Smooth scroll con offset por navbar
+   - Scroll reveal con IntersectionObserver
+   - Botón subir arriba (mostrar/ocultar y scroll)
+   - Validación simple de formulario (envío simulado)
 */
 
 /* -------------------------
    UTILIDADES
-------------------------- */
-const $ = (sel, ctx=document) => ctx.querySelector(sel);
-const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+   ------------------------- */
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Elementos clave
   const navbar = $('#navbar');
   const backToTop = $('#backToTop');
   const menuToggle = $('#menuToggle');
   const navLinks = $('#navLinks');
   const year = $('#year');
-  const contactForm = $('#contactForm');
-  const formFeedback = $('#formFeedback');
 
-  // Año actual en footer
-  if(year) year.textContent = new Date().getFullYear();
+  // Poner año actual en footer
+  if (year) year.textContent = new Date().getFullYear();
 
   /* -------------------------
-     SCROLL NAVBAR & BACK TO TOP
-  ------------------------- */
+     NAVBAR: cambio al hacer scroll
+     ------------------------- */
   const SCROLL_THRESHOLD = 60;
   const onScroll = () => {
-    if(window.scrollY > SCROLL_THRESHOLD) navbar.classList.add('scrolled');
+    if (window.scrollY > SCROLL_THRESHOLD) navbar.classList.add('scrolled');
     else navbar.classList.remove('scrolled');
 
-    if(window.scrollY > 420) backToTop.classList.add('show');
+    // Mostrar botón subir arriba
+    if (window.scrollY > 420) backToTop.classList.add('show');
     else backToTop.classList.remove('show');
   };
-  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
-
-  backToTop.addEventListener('click', () => {
-    window.scrollTo({top:0, behavior:'smooth'});
-  });
 
   /* -------------------------
      MOBILE MENU TOGGLE
-  ------------------------- */
+     ------------------------- */
   menuToggle.addEventListener('click', () => {
     navLinks.classList.toggle('open');
     menuToggle.classList.toggle('open');
+    // Toggle simple: cuando abierto, mostramos enlaces en columna (estilos via CSS no incluidos para brevity,
+    // pero aquí podemos alternar aria-expanded).
     const expanded = navLinks.classList.contains('open');
-    menuToggle.setAttribute('aria-expanded', expanded ? 'true':'false');
+    menuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
   });
 
   /* -------------------------
-     SMOOTH SCROLL
-  ------------------------- */
+     SMOOTH SCROLL + offset (navbar sticky)
+     ------------------------- */
   const NAVBAR_OFFSET = navbar.offsetHeight || 72;
   $$('a[data-target]').forEach(a => {
-    a.addEventListener('click', e => {
+    a.addEventListener('click', (e) => {
       e.preventDefault();
       const targetId = a.getAttribute('href').substring(1);
       const targetEl = document.getElementById(targetId);
-      if(!targetEl) return;
+      if (!targetEl) return;
+      // Compute position minus navbar height
       const rectTop = targetEl.getBoundingClientRect().top + window.pageYOffset;
       const scrollTo = Math.max(rectTop - NAVBAR_OFFSET - 10, 0);
-      window.scrollTo({top:scrollTo, behavior:'smooth'});
+      window.scrollTo({ top: scrollTo, behavior: 'smooth' });
 
-      if(navLinks.classList.contains('open')){
+      // cerrar menú mobile si estaba abierto
+      if (navLinks.classList.contains('open')) {
         navLinks.classList.remove('open');
         menuToggle.classList.remove('open');
       }
     });
   });
 
+  // También botón "Ver Menú" (usa anchor normal)
+  const verMenuBtn = $('#verMenuBtn');
+  if (verMenuBtn){
+    verMenuBtn.addEventListener('click', (e) => {
+      // allow the anchor handler above to handle via data-target? if not, just scroll
+    });
+  }
+
   /* -------------------------
-     SCROLL REVEAL
-  ------------------------- */
+     SCROLL REVEAL (IntersectionObserver)
+     ------------------------- */
   const revealElements = $$('.reveal');
   const revealObserver = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
-      if(entry.isIntersecting){
+      if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        obs.unobserve(entry.target);
+        obs.unobserve(entry.target); // reveal once
       }
     });
-  }, {root:null, rootMargin:"0px 0px -8% 0px", threshold:0.12});
+  }, { root: null, rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+
   revealElements.forEach(el => revealObserver.observe(el));
 
   /* -------------------------
-     CONTACT FORM + EMAILJS
-  ------------------------- */
-  if(contactForm){
-    emailjs.init('TU_USER_ID'); // reemplazar TU_USER_ID con tu EmailJS user ID
+     BACK TO TOP
+     ------------------------- */
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
-    contactForm.addEventListener('submit', (e)=>{
+  /* -------------------------
+     CONTACT FORM (validación básica + simulación envío)
+     ------------------------- */
+  const contactForm = $('#contactForm');
+  const formFeedback = $('#formFeedback');
+  if (contactForm){
+    contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
       formFeedback.textContent = '';
       const name = contactForm.name.value.trim();
       const email = contactForm.email.value.trim();
       const message = contactForm.message.value.trim();
 
-      if(!name || !email || !message){
-        formFeedback.style.color='crimson';
-        formFeedback.textContent='Por favor completá todos los campos.';
+      // Validación simple
+      if (!name || !email || !message) {
+        formFeedback.style.color = 'crimson';
+        formFeedback.textContent = 'Por favor, completá todos los campos.';
         return;
       }
+      // Email simple regex
       const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if(!emailRe.test(email)){
-        formFeedback.style.color='crimson';
-        formFeedback.textContent='Ingresá un email válido.';
+      if (!emailRe.test(email)) {
+        formFeedback.style.color = 'crimson';
+        formFeedback.textContent = 'Ingresá un email válido.';
         return;
       }
 
-      formFeedback.style.color='green';
-      formFeedback.textContent='Enviando...';
+      // Simular envío (aquí podrías integrar fetch a tu API)
+      formFeedback.style.color = 'green';
+      formFeedback.textContent = 'Enviando...';
 
-      // EmailJS: enviar formulario a tu Gmail
-      const serviceID = 'TU_SERVICE_ID';   // reemplazar
-      const templateID = 'TU_TEMPLATE_ID'; // reemplazar
-
-      emailjs.send(serviceID, templateID, {
-        from_name: name,
-        from_email: email,
-        message: message
-      }).then(()=>{
+      // Simulación de 1s
+      setTimeout(() => {
         contactForm.reset();
-        formFeedback.textContent='¡Gracias! Tu mensaje fue enviado correctamente.';
-      }, (err)=>{
-        formFeedback.style.color='crimson';
-        formFeedback.textContent='Error al enviar. Intentá de nuevo.';
-        console.error(err);
-      });
+        formFeedback.style.color = 'green';
+        formFeedback.textContent = '¡Gracias! Tu mensaje fue enviado correctamente.';
+      }, 1000);
     });
   }
 
   /* -------------------------
-     ACCESIBILIDAD TECLAS
-  ------------------------- */
-  document.addEventListener('keydown', e=>{
-    if(e.key.toLowerCase()==='u') window.scrollTo({top:0, behavior:'smooth'});
+     Mejora: teclas accesibilidad (volver arriba con tecla U)
+     ------------------------- */
+  document.addEventListener('keydown', (e) => {
+    if (e.key.toLowerCase() === 'u') window.scrollTo({top:0, behavior:'smooth'});
   });
 
-  document.addEventListener('keyup', e=>{
-    if(e.key==='Tab') document.body.classList.add('show-focus');
-  }, {once:true});
+  /* -------------------------
+     Microcopy: añadir focus visible para accesibilidad
+     ------------------------- */
+  document.addEventListener('keyup', (e) => {
+    if (e.key === 'Tab') document.body.classList.add('show-focus');
+  }, { once: true });
+
 });
