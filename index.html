@@ -20,12 +20,8 @@
   <header class="navbar" id="navbar">
     <div class="container navbar-inner">
       <a href="#inicio" class="logo">
-        <!-- Simple SVG logo -->
-        <svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <rect x="2" y="6" width="20" height="12" rx="2" fill="#FF7A00"></rect>
-          <circle cx="8" cy="12" r="2.2" fill="#FFD700"></circle>
-          <circle cx="16" cy="12" r="2.2" fill="#FFD700"></circle>
-        </svg>
+        <!-- Logo real -->
+        <img src="img/logo.png" alt="Cole's Food Truck" class="logo-img">
         <span>Cole's</span>
       </a>
 
@@ -47,9 +43,9 @@
   <section id="inicio" class="hero">
     <div class="overlay"></div>
     <div class="hero-content container">
-      <h1 class="hero-title">Cole's Food Truck</h1>
-      <p class="hero-subtitle">Sabores callejeros. Ingredientes reales. Amor en cada bocado.</p>
-      <div class="hero-ctas">
+      <h1 class="hero-title reveal hero-fade">Cole's Food Truck</h1>
+      <p class="hero-subtitle reveal hero-fade">Sabores callejeros. Ingredientes reales. Amor en cada bocado.</p>
+      <div class="hero-ctas reveal hero-fade">
         <a class="btn btn-primary" href="#menu" id="verMenuBtn">Ver Menú</a>
         <a class="btn btn-ghost" href="#ubicacion">Ver Ubicación</a>
       </div>
@@ -63,14 +59,13 @@
       <p class="section-subtitle reveal">Platos preparados al momento — opciones vegetarianas y clásicas.</p>
 
       <div class="menu-grid" id="menuGrid">
-        <!-- Tarjetas de producto: ejemplos (puedes clonar/cambiar) -->
         <article class="card reveal">
           <div class="card-media">
-            <img src="https://acdn-us.mitiendanube.com/stores/001/664/252/products/4e475ddf-2c43-4d47-b69c-990a92e91029-26f258f7fdb6a2b9fb16276674103675-640-0.jpeg" alt="Hamburguesa clásica">
+            <img src="https://acdn-us.mitiendanube.com/stores/001/664/252/products/4e475ddf-2c43-4d47-b69c-990a92e91029-26f258f7fdb6a2b9fb16276674103675-640-0.jpeg" alt="Pizza Muzarella">
           </div>
           <div class="card-body">
             <h3 class="card-title">Pizza Muzarella</h3>
-            <p class="card-desc">Deliciosa pizza con salsa de tomate y queso mozzarella..</p>
+            <p class="card-desc">Deliciosa pizza con salsa de tomate y queso mozzarella.</p>
             <div class="card-foot">
               <span class="price">$12.000</span>
             </div>
@@ -79,7 +74,7 @@
 
         <article class="card reveal">
           <div class="card-media">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHvZ8wGQtxs9IjSwajupR7syBGfVO1VzowoA&s" alt="Tacos">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHvZ8wGQtxs9IjSwajupR7syBGfVO1VzowoA&s" alt="Pizza Napolitana">
           </div>
           <div class="card-body">
             <h3 class="card-title">Pizza Napolitana</h3>
@@ -92,11 +87,11 @@
 
         <article class="card reveal">
           <div class="card-media">
-            <img src="https://media-cdn.tripadvisor.com/media/photo-s/0e/0a/27/05/pizza-especial-salsa.jpg" alt="Wrap vegetariano">
+            <img src="https://media-cdn.tripadvisor.com/media/photo-s/0e/0a/27/05/pizza-especial-salsa.jpg" alt="Pizza Especial">
           </div>
           <div class="card-body">
             <h3 class="card-title">Pizza Especial</h3>
-            <p class="card-desc">Salsa de tomate, jamon, morron y mozzarella.</p>
+            <p class="card-desc">Salsa de tomate, jamón, morrón y mozzarella.</p>
             <div class="card-foot">
               <span class="price">$16.000</span>
             </div>
@@ -105,18 +100,16 @@
 
         <article class="card reveal">
           <div class="card-media">
-            <img src="https://www.circuitogastronomico.com/wp-content/uploads/2023/04/pizzar-lomito-2.jpg" alt="Papas rústicas">
+            <img src="https://www.circuitogastronomico.com/wp-content/uploads/2023/04/pizzar-lomito-2.jpg" alt="Lomo Completo">
           </div>
           <div class="card-body">
             <h3 class="card-title">Lomo Completo</h3>
-            <p class="card-desc">Lomo, queso, jamon, lechuga, tomate, pan y papas fritas.</p>
+            <p class="card-desc">Lomo, queso, jamón, lechuga, tomate, pan y papas fritas.</p>
             <div class="card-foot">
               <span class="price">$10.000</span>
             </div>
           </div>
         </article>
-
-        <!-- Añade más tarjetas según necesites -->
       </div>
     </div>
   </section>
@@ -125,10 +118,10 @@
   <section id="nosotros" class="section alt">
     <div class="container">
       <div class="split">
-        <div class="split-media reveal">
+        <div class="split-media reveal split-left">
           <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80" alt="Equipo del food truck">
         </div>
-        <div class="split-content reveal">
+        <div class="split-content reveal split-right">
           <h2>Sobre Cole's</h2>
           <p class="lead">Nacimos en 2018 con la idea simple de servir comida rica y honesta desde la calle. Somos un equipo pequeño con grandes ganas: ingredientes locales, recetas probadas y mucha música.</p>
           <p>Participamos en ferias, eventos privados y cada semana estacionamos en puntos céntricos. Nuestro objetivo: que cada cliente se vaya con una sonrisa y un plato memorable.</p>
@@ -144,7 +137,6 @@
       <p class="section-subtitle reveal">Puntos fijos y horarios — ¡vení a visitarnos!</p>
 
       <div class="map-wrap reveal">
-        <!-- Embed Google Maps (busca tu dirección y reemplaza si querés) -->
         <iframe
           title="Mapa - Cole's Food Truck"
           src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d594.3467463134198!2d-64.47215746167986!3d-31.113299114341032!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x942d83199853161d%3A0x7717cf80eeadb6a4!2sCole&#39;s%20Caf%C3%A9%20y%20Comidas!5e0!3m2!1ses-419!2sar!4v1759283107598!5m2!1ses-419!2sar"
@@ -192,19 +184,16 @@
           <h3>Redes y rápido contacto</h3>
           <p>Seguinos para ver nuestra ubicación diaria y promos.</p>
           <div class="socials">
-                <a href="https://facebook.com" aria-label="Facebook" class="social-icon" title="Facebook" target="_blank" rel="noopener">
-                    <img src="https://www.google.com/s2/favicons?sz=64&domain=facebook.com" alt="Facebook favicon">
-                </a>
-
-                <a href="https://www.instagram.com/coles_foodtruck?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" aria-label="Instagram" class="social-icon" title="Instagram" target="_blank" rel="noopener">
-                    <img src="https://www.google.com/s2/favicons?sz=64&domain=instagram.com" alt="Instagram favicon">
-                </a>
-
-                <a href="https://wa.me/5491112345678" aria-label="WhatsApp" class="social-icon" title="WhatsApp" target="_blank" rel="noopener">
-                    <img src="https://www.google.com/s2/favicons?sz=64&domain=whatsapp.com" alt="WhatsApp favicon">
-                </a>
-            </div>
-
+            <a href="https://facebook.com" aria-label="Facebook" class="social-icon" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain=facebook.com" alt="Facebook favicon">
+            </a>
+            <a href="https://www.instagram.com/coles_foodtruck" aria-label="Instagram" class="social-icon" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain=instagram.com" alt="Instagram favicon">
+            </a>
+            <a href="https://wa.me/5491112345678" aria-label="WhatsApp" class="social-icon" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain=whatsapp.com" alt="WhatsApp favicon">
+            </a>
+          </div>
           <div class="contact-info">
             <p><strong>Dirección:</strong> Guemes, Sta. Teresa esquina, Valle Hermoso, Córdoba</p>
             <p><strong>Tel:</strong> +54 9 3548 43-9081</p>
@@ -238,5 +227,7 @@
 
   <!-- Script -->
   <script src="script.js" defer></script>
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 </body>
 </html>
