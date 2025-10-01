@@ -20,14 +20,10 @@
   <header class="navbar" id="navbar">
     <div class="container navbar-inner">
       <a href="#inicio" class="logo">
-        <!-- Simple SVG logo -->
-        <svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <rect x="2" y="6" width="20" height="12" rx="2" fill="#FF7A00"></rect>
-          <circle cx="8" cy="12" r="2.2" fill="#FFD700"></circle>
-          <circle cx="16" cy="12" r="2.2" fill="#FFD700"></circle>
-        </svg>
+        <img src="img/logo.png" alt="Logo Cole's Food Truck" width="48" height="48">
         <span>Cole's</span>
       </a>
+
 
       <nav class="nav-links" id="navLinks">
         <a href="#inicio" data-target="inicio">Inicio</a>
@@ -169,7 +165,8 @@
       <p class="section-subtitle reveal">Reservas, pedidos o consultas — escribinos.</p>
 
       <div class="contact-grid">
-        <form id="contactForm" class="contact-form reveal" novalidate>
+        <!-- Formulario adaptado a Formspree -->
+        <form id="contactForm" class="contact-form reveal" action="https://formspree.io/f/xjkarvzd" method="POST">
           <div class="form-row">
             <label for="name">Nombre</label>
             <input type="text" id="name" name="name" required placeholder="Tu nombre">
@@ -185,6 +182,7 @@
           <div class="form-row">
             <button type="submit" class="btn btn-primary">Enviar mensaje</button>
           </div>
+          <!-- Feedback opcional: se puede actualizar con JS al enviar -->
           <div id="formFeedback" class="form-feedback" aria-live="polite"></div>
         </form>
 
@@ -192,18 +190,18 @@
           <h3>Redes y rápido contacto</h3>
           <p>Seguinos para ver nuestra ubicación diaria y promos.</p>
           <div class="socials">
-                <a href="https://facebook.com" aria-label="Facebook" class="social-icon" title="Facebook" target="_blank" rel="noopener">
-                    <img src="https://www.google.com/s2/favicons?sz=64&domain=facebook.com" alt="Facebook favicon">
-                </a>
+            <a href="https://facebook.com" aria-label="Facebook" class="social-icon" title="Facebook" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain=facebook.com" alt="Facebook favicon">
+            </a>
 
-                <a href="https://www.instagram.com/coles_foodtruck?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" aria-label="Instagram" class="social-icon" title="Instagram" target="_blank" rel="noopener">
-                    <img src="https://www.google.com/s2/favicons?sz=64&domain=instagram.com" alt="Instagram favicon">
-                </a>
+            <a href="https://www.instagram.com/coles_foodtruck?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" aria-label="Instagram" class="social-icon" title="Instagram" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain=instagram.com" alt="Instagram favicon">
+            </a>
 
-                <a href="https://wa.me/5491112345678" aria-label="WhatsApp" class="social-icon" title="WhatsApp" target="_blank" rel="noopener">
-                    <img src="https://www.google.com/s2/favicons?sz=64&domain=whatsapp.com" alt="WhatsApp favicon">
-                </a>
-            </div>
+            <a href="https://wa.me/5491112345678" aria-label="WhatsApp" class="social-icon" title="WhatsApp" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain=whatsapp.com" alt="WhatsApp favicon">
+            </a>
+          </div>
 
           <div class="contact-info">
             <p><strong>Dirección:</strong> Guemes, Sta. Teresa esquina, Valle Hermoso, Córdoba</p>
@@ -214,6 +212,7 @@
       </div>
     </div>
   </section>
+
 
   <!-- FOOTER -->
   <footer class="footer">

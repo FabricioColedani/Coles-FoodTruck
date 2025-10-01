@@ -5,12 +5,11 @@
    - Smooth scroll con offset por navbar
    - Scroll reveal con IntersectionObserver
    - Botón subir arriba (mostrar/ocultar y scroll)
-   - Validación simple de formulario (envío simulado)
 */
 
 /* -------------------------
    UTILIDADES
-   ------------------------- */
+------------------------- */
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
@@ -27,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* -------------------------
      NAVBAR: cambio al hacer scroll
-     ------------------------- */
+  ------------------------- */
   const SCROLL_THRESHOLD = 60;
   const onScroll = () => {
     if (window.scrollY > SCROLL_THRESHOLD) navbar.classList.add('scrolled');
@@ -42,19 +41,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* -------------------------
      MOBILE MENU TOGGLE
-     ------------------------- */
+  ------------------------- */
   menuToggle.addEventListener('click', () => {
     navLinks.classList.toggle('open');
     menuToggle.classList.toggle('open');
-    // Toggle simple: cuando abierto, mostramos enlaces en columna (estilos via CSS no incluidos para brevity,
-    // pero aquí podemos alternar aria-expanded).
     const expanded = navLinks.classList.contains('open');
     menuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
   });
 
   /* -------------------------
      SMOOTH SCROLL + offset (navbar sticky)
-     ------------------------- */
+  ------------------------- */
   const NAVBAR_OFFSET = navbar.offsetHeight || 72;
   $$('a[data-target]').forEach(a => {
     a.addEventListener('click', (e) => {
@@ -62,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetId = a.getAttribute('href').substring(1);
       const targetEl = document.getElementById(targetId);
       if (!targetEl) return;
-      // Compute position minus navbar height
       const rectTop = targetEl.getBoundingClientRect().top + window.pageYOffset;
       const scrollTo = Math.max(rectTop - NAVBAR_OFFSET - 10, 0);
       window.scrollTo({ top: scrollTo, behavior: 'smooth' });
@@ -75,23 +71,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // También botón "Ver Menú" (usa anchor normal)
-  const verMenuBtn = $('#verMenuBtn');
-  if (verMenuBtn){
-    verMenuBtn.addEventListener('click', (e) => {
-      // allow the anchor handler above to handle via data-target? if not, just scroll
-    });
-  }
-
   /* -------------------------
      SCROLL REVEAL (IntersectionObserver)
-     ------------------------- */
+  ------------------------- */
   const revealElements = $$('.reveal');
   const revealObserver = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        obs.unobserve(entry.target); // reveal once
+        obs.unobserve(entry.target);
       }
     });
   }, { root: null, rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
@@ -100,61 +88,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* -------------------------
      BACK TO TOP
-     ------------------------- */
+  ------------------------- */
   backToTop.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
   /* -------------------------
-     CONTACT FORM (validación básica + simulación envío)
-     ------------------------- */
+     CONTACT FORM: Formspree envía directamente
+  ------------------------- */
   const contactForm = $('#contactForm');
-  const formFeedback = $('#formFeedback');
-  if (contactForm){
+  if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      formFeedback.textContent = '';
-      const name = contactForm.name.value.trim();
-      const email = contactForm.email.value.trim();
-      const message = contactForm.message.value.trim();
-
-      // Validación simple
-      if (!name || !email || !message) {
-        formFeedback.style.color = 'crimson';
-        formFeedback.textContent = 'Por favor, completá todos los campos.';
-        return;
-      }
-      // Email simple regex
-      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRe.test(email)) {
-        formFeedback.style.color = 'crimson';
-        formFeedback.textContent = 'Ingresá un email válido.';
-        return;
-      }
-
-      // Simular envío (aquí podrías integrar fetch a tu API)
-      formFeedback.style.color = 'green';
-      formFeedback.textContent = 'Enviando...';
-
-      // Simulación de 1s
-      setTimeout(() => {
-        contactForm.reset();
+      // Opcional: mostrar feedback visual
+      const formFeedback = document.getElementById('formFeedback');
+      if (formFeedback) {
         formFeedback.style.color = 'green';
-        formFeedback.textContent = '¡Gracias! Tu mensaje fue enviado correctamente.';
-      }, 1000);
+        formFeedback.textContent = 'Enviando...';
+      }
+      // El envío real lo maneja Formspree automáticamente
     });
   }
 
   /* -------------------------
      Mejora: teclas accesibilidad (volver arriba con tecla U)
-     ------------------------- */
+  ------------------------- */
   document.addEventListener('keydown', (e) => {
     if (e.key.toLowerCase() === 'u') window.scrollTo({top:0, behavior:'smooth'});
   });
 
   /* -------------------------
      Microcopy: añadir focus visible para accesibilidad
-     ------------------------- */
+  ------------------------- */
   document.addEventListener('keyup', (e) => {
     if (e.key === 'Tab') document.body.classList.add('show-focus');
   }, { once: true });

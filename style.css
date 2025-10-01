@@ -82,6 +82,12 @@ body{
 }
 
 /* Logo */
+.logo img {
+  display: block;
+  height: 36px; /* o ajustá según tu navbar */
+  width: auto;
+}
+
 .logo{
   display:flex;
   align-items:center;
